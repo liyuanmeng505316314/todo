@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {Link} from 'react-router-dom'
 import { Input,Icon ,Button} from 'antd';
+import { message } from 'antd';
 import axios from 'src/config/axios'
 import './SignUp.scss'
 // import { useHistory } from 'react-router';
@@ -44,10 +45,11 @@ class Component extends React.Component<any,ISignUpState>{
           password,
           password_Confirmation:passwordConformation,
       })
-      console.log('成功')
+      message.success('成功')
+      this.props.history.push('/')
     }catch(e){
-       console.log('失败')
-    }
+      message.warning('失败')
+      }
     }
     
  
@@ -56,7 +58,9 @@ class Component extends React.Component<any,ISignUpState>{
         const { account ,password,passwordConformation}  =this.state;
               return(
                   <div className="SignUp" id="SignUp">
-                      <h1>注册您的账号</h1>
+
+                      <h1>注册界面</h1>
+
                       <Input
                       id='username'
                       placeholder="请输入您的用户名"
@@ -64,21 +68,27 @@ class Component extends React.Component<any,ISignUpState>{
                       value={account}
                       onChange={this.onChangeAccount}
                       />
+
+
                       <Input.Password
                       id='password'
                        value={password} 
                        placeholder="请输入密码"
                        onChange={this.onChangePassword}
                         />
+
+
                       <Input.Password
                       id='confirm'
                        value={passwordConformation}
                        onChange={this.onChangePasswordConformation}
                         placeholder="请确认密码"
                          />
-                         <Button type="primary" className="SignUpButton" onClick={this.submit}>注册</Button>
 
-                         <p> 已有账号，请登录<Link to='/login'>登录</Link></p>
+                       <Button type="primary" className="SignUpButton" onClick={this.submit}>注册</Button>
+
+                       <p> 已有账号，请登录<Link to='/login'>登录</Link></p>
+                       
                   </div>
         
               )
