@@ -1,6 +1,9 @@
 import * as React from 'react';
+import {Link} from 'react-router-dom'
 import { Input,Icon ,Button} from 'antd';
 import axios from 'src/config/axios'
+import './SignUp.scss'
+// import { useHistory } from 'react-router';
 
 
 
@@ -22,36 +25,38 @@ class Component extends React.Component<any,ISignUpState>{
      }
     
      onChangeAccount=(e)=>{
-         
-       
-         this.setState(this.state,{ account:e.target.value })
+        console.log(e.target.value)
+         this.setState({...this.state, account:e.target.value })
      }
      onChangePassword=(e)=>{
-      
-        this.setState(this.state,{ password:e.target.value })
+        console.log(e.target.value)
+        this.setState({...this.state, password:e.target.value })
     }
     onChangePasswordConformation=(e)=>{
-      
-        this.setState(this.state,{ passwordConformation:e.target.value })
+        console.log(e.target.value)
+        this.setState({...this.state, passwordConformation:e.target.value })
     }
     submit=async()=>{
         const { account ,password,passwordConformation}  =this.state;
     try{
-      await axios.post(url:'sign_up/user',data:{
+      await axios.post('sign_up/user',{
           account,
           password,
           password_Confirmation:passwordConformation,
       })
       console.log('成功')
     }catch(e){
-       throw new Error(e)
+       console.log('失败')
     }
     }
+    
+ 
 
     render(){
         const { account ,password,passwordConformation}  =this.state;
               return(
-                  <div className="SignUp">
+                  <div className="SignUp" id="SignUp">
+                      <h1>注册您的账号</h1>
                       <Input
                       id='username'
                       placeholder="请输入您的用户名"
@@ -71,7 +76,9 @@ class Component extends React.Component<any,ISignUpState>{
                        onChange={this.onChangePasswordConformation}
                         placeholder="请确认密码"
                          />
-                         <Button onClick={this.submit}>注册</Button>
+                         <Button type="primary" className="SignUpButton" onClick={this.submit}>注册</Button>
+
+                         <p> 已有账号，请登录<Link to='/login'>登录</Link></p>
                   </div>
         
               )
