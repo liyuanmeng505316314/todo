@@ -1,4 +1,4 @@
-import { Button } from 'antd';
+
 import * as React from 'react';
 import {BrowserRouter as Router,Route} from 'react-router-dom'
 import Index from './component/Index'
@@ -6,12 +6,13 @@ import Login from './component/Login'
 import SignUp from './component/SignUp'
 
 class App extends React.Component {
+  
   public render() {
     return (
     <Router>
-       <Route exact={true} path="/" component={Index} />
-       <Route path="/Login" component={Login} />
-       <Route path="/SignUp" component={SignUp} />
+       <Route path="/" exact={true} component={Index} />
+       <Route path="/Login"         component={Login} />
+       <Route path="/SignUp"        component={SignUp} />
     </Router>
     );
   }
