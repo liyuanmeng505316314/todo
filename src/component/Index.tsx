@@ -22,20 +22,14 @@ class Component extends React.Component<IRouter, IIndexState>{
    }
 
    getMe=async()=>{
-       try{
         const response=await axios.get('me')
         this.setState({user:response.data})
-       }catch(e){
-           console.log(e)
-        //   if(e.response.status===401){
-        //     this.props.history.push('/login')
-        //   }
-       }
    }
 
     logout=()=>{
         localStorage.setItem('x-token','')
         this.props.history.push('/login')
+        
     }
     render(){
               return(

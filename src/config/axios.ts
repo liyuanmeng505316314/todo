@@ -38,6 +38,7 @@ instance.interceptors.response.use( (response)=> {
 },  (error)=>{
     if(error.response.status===401){
         history.push('/login');
+        window.location.reload();
     }
     return Promise.reject(error);
 });

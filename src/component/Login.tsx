@@ -40,7 +40,7 @@ class Component extends React.Component<any,ILoginState>{
        }catch(e){
        message.error('账号或者密码错误')
       }}
-    
+
     render(){
         const { account ,password}  =this.state;
               return(
@@ -64,7 +64,8 @@ class Component extends React.Component<any,ILoginState>{
                     />
 
                     <Button type="primary" className="LoginButton" onClick={this.submit}>登录</Button>
-                    <p> 没有账号请注册<Link to='/SignUP'>注册</Link></p>
+                    
+                    <p> 没有账号请注册<Link to='/SignUP' >注册</Link></p>
                   </div>
         )}
 }

@@ -46,7 +46,6 @@ class Component extends React.Component<any,ISignUpState>{
           password_confirmation:passwordConformation,
       })
       message.success('成功')
-      this.props.history.push('/')
     }catch(e){
       message.warning('失败')
       }
