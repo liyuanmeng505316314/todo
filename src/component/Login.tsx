@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Input,Icon ,Button} from 'antd';
+import {Link} from 'react-router-dom'
 import axios from 'src/config/axios'
 import './Login.scss'
 import { message } from 'antd';
@@ -63,7 +64,7 @@ class Component extends React.Component<any,ILoginState>{
                     />
 
                     <Button type="primary" className="LoginButton" onClick={this.submit}>登录</Button>
-
+                    <p> 没有账号请注册<Link to='/SignUP'>注册</Link></p>
                   </div>
         )}
 }

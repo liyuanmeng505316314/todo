@@ -43,7 +43,7 @@ class Component extends React.Component<any,ISignUpState>{
       await axios.post('sign_up/user',{
           account,
           password,
-          password_Confirmation:passwordConformation,
+          password_confirmation:passwordConformation,
       })
       message.success('成功')
       this.props.history.push('/')
@@ -69,7 +69,6 @@ class Component extends React.Component<any,ISignUpState>{
                       onChange={this.onChangeAccount}
                       />
 
-
                       <Input.Password
                       id='password'
                        value={password} 
@@ -88,7 +87,7 @@ class Component extends React.Component<any,ISignUpState>{
                        <Button type="primary" className="SignUpButton" onClick={this.submit}>注册</Button>
 
                        <p> 已有账号，请登录<Link to='/login'>登录</Link></p>
-                       
+
                   </div>
         
               )
