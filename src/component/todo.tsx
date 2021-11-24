@@ -20,7 +20,7 @@ class Component extends React.Component<any,ITodoState>{
         const {todos} =this.state
        try{
          const response= await axios.post('todos',params)
-         this.setState({todos:[response.data.resource,...todos]})
+         this.setState({todos:[response.data.resources,...todos]})
          console.log(response.data)
        }catch(e){
          console.log('fail')
@@ -29,7 +29,8 @@ class Component extends React.Component<any,ITodoState>{
     getTodo = async () => { 
         try{
             const response= await axios.get('todos')
-            this.setState({todos:response.data.resources})
+            const todos=response.data.resources.map(t=>Object.assign({},t,{editing:false}))
+            this.setState({todos})
         }catch(e){
            throw new Error(e)
         }
@@ -40,7 +41,7 @@ class Component extends React.Component<any,ITodoState>{
             const  response= await axios.put(`todos/${id}`,params)
             const newTodos=todos.map(t=>{
                 if(id===t.id){
-                    return response.data.resource
+                    return response.data.resources
                 }else{
                     return t
                 }
@@ -50,10 +51,22 @@ class Component extends React.Component<any,ITodoState>{
             throw new Error(e)
           }
     }
+
     componentDidMount(){
         this.getTodo()
     }
-   
+
+   toEditing=(id:number)=>{
+      const {todos}=this.state
+      const newTodos = todos.map(t=>{
+           if(id===t.id){
+               return Object.assign({},t,{editing:true})
+           } else {
+            return Object.assign({},t,{editing:false})
+           }
+       })
+    this.setState({todos:newTodos})
+   }
 
     render(){
         return(
@@ -65,9 +78,9 @@ class Component extends React.Component<any,ITodoState>{
             <div>{ this.state.todos.map(t=>{  
                     return <TodoItem key={t.id} {...t} 
                     update={this.updateTodo}
+                    toEditing={this.toEditing}
                     />  
-                  }
-                 ) 
+                  }) 
                 }  
             </div>
             </div>

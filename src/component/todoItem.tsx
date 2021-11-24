@@ -7,7 +7,9 @@ interface ITodoItemProps{
     id:number;
     description:string;
     completed:boolean;
+    editing:boolean;
     update:(id:number,params:any)=>void;
+    toEditing:(id:number)=>void;
 }
 
 
@@ -19,13 +21,20 @@ class Component extends React.Component<ITodoItemProps>{
     update=(params:any)=>{
        this.props.update(this.props.id,params)
     }
-    render(){
+    toEditing=()=>{
+         this.props.toEditing(this.props.id)
+    }
+    public render(){
         return(
             <div className="TodoItem" id="TodoItem">
             <Checkbox checked={this.props.completed} 
                     onChange={e=>this.update({completed:e.target.checked})}
             />
-            <span> {this.props.description} </span>
+            {
+              this.props.editing?
+              <input type ="text" value={this.props.description}/>:
+              <span onDoubleClick={this.toEditing}> {this.props.description} </span>
+            }
             </div>
         )
     }
