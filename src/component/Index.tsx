@@ -1,22 +1,37 @@
 import * as React from 'react';
-import {Button} from 'antd';
+import {Dropdown,Icon,Menu} from 'antd';
 import axios from 'src/config/axios'
-
+import history from '../config/history'
+import './Index.scss'
+import Todo from './todo'
 interface IRouter{
     history:any;
 }
+
 interface IIndexState{
     user:any
 }
-class Component extends React.Component<IRouter, IIndexState>{
 
+const logout=()=>{
+  localStorage.setItem('x-token','')
+  history.push('/login')
+  
+}
+
+const menu = (
+    <Menu>
+      <Menu.Item key="1" ><Icon type="user"/>个人设置</Menu.Item>
+      <Menu.Item key="2" onClick={logout} ><Icon type="logout"/>注销</Menu.Item>
+    </Menu>
+  );
+
+class Component extends React.Component<IRouter, IIndexState>{
    constructor(props:any){
        super(props)
        this.state={
            user:{}
        }
    }
-
    async componentWillMount(){
       await this.getMe()
    }
@@ -25,21 +40,25 @@ class Component extends React.Component<IRouter, IIndexState>{
         const response=await axios.get('me')
         this.setState({user:response.data})
    }
-
-    logout=()=>{
-        localStorage.setItem('x-token','')
-        this.props.history.push('/login')
-        
-    }
+   
     render(){
               return(
-                  <div className="Component"> 
-                  <p>欢迎，{this.state.user&&this.state.user.account}</p>
-                      <Button onClick={this.logout}>注销</Button>
-                  </div>
-        
+                <div className="Index" id="Index"> 
+                <header id="indexId">
+                  <span className="Logo">番茄土豆时钟</span>
+                  <Dropdown overlay={menu}>
+                   <span>
+                       {this.state.user&&this.state.user.account}<Icon type="down" style={{marginLeft:12}}/>
+                   </span>
+                  </Dropdown>
+                </header>
+                <main>
+                  <Todo/>
+                </main>
+                </div>
               )
     }
 
 }
 export default Component
+

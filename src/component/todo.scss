@@ -1,0 +1,37 @@
+
+
+
+#Todos{
+    display: flex;
+    flex-wrap:wrap;
+    width: 94vw;
+    height: 400px;
+    background-color: red;
+    .todo1{
+    width:  47vw;
+    height: 200px;
+    background-color: blue;
+    }
+    .todo2{
+        width: 47vw;
+        height: 200px;
+        background-color: yellow;
+        >.input{
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            width: 32vw;
+            margin: auto;
+        }
+    }
+    .todo3{
+        width:  47vw;
+        height: 200px;
+        background-color: black;
+        }
+    .todo4{
+            width: 47vw;
+            height: 200px;
+            background-color: gray;
+    }
+}
