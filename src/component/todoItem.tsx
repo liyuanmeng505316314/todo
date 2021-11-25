@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {Checkbox,Icon} from 'antd'
-
+import './todoItem.scss'
+import classNames from 'classnames'
 
 
 interface ITodoItemProps{
@@ -36,35 +37,39 @@ class Component extends React.Component<ITodoItemProps,ITOdoItemState>{
         }
     }
     public render(){
+        // 这个前面是两个JSX元素，用于那个选择的
           const Editing= (
              <div className="editing">
-                 <input type="text"  
+                 <input className="input" type="text"  
                      value={this.state.editText}  
                      onChange={e=>this.setState({editText:e.target.value})}
                      onKeyUp={this.onKeyUp}
                  />
                  <div className="iconWrapper">
-                     <Icon type="enter"/>
-                     <Icon type="delete" theme="filled"
+                     <Icon className="icon" type="enter"/>
+                     <Icon className="icon" type="delete" theme="filled"
                      onClick={e=>this.update({delete:true})}
                      />
                  </div>
              </div>
           )
-          const Text=(<span onDoubleClick={this.toEditing}> {this.props.description} </span>)
+          const Text=(<span className="text" onDoubleClick={this.toEditing}> {this.props.description} </span>)
+          const todoItemClass=classNames({
+            completed:this.props.completed,         
+            editing:this.props.editing,
+            TodoItem:true,
+          })
         return(
-            <div className="TodoItem" id="TodoItem">
-            <Checkbox checked={this.props.completed} 
+            <div className={todoItemClass} id="TodoItem">
+            {/* 勾选框，表示是否已完成 */}
+            <Checkbox className="checkbox" checked={this.props.completed} 
                     onChange={e=>this.update({completed:e.target.checked})}
             />
+            {/* 下面是编辑框或者文本框 */}
             {this.props.editing?Editing:Text}
             </div>
         )
     }
-   
-
-
-
 
 }
 
