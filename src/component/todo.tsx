@@ -20,7 +20,7 @@ class Component extends React.Component<any,ITodoState>{
         const {todos} =this.state
        try{
          const response= await axios.post('todos',params)
-         this.setState({todos:[response.data.resources,...todos]})
+         this.setState({todos:[response.data.resource,...todos]})
          console.log(response.data)
        }catch(e){
          console.log('fail')
@@ -41,7 +41,7 @@ class Component extends React.Component<any,ITodoState>{
             const  response= await axios.put(`todos/${id}`,params)
             const newTodos=todos.map(t=>{
                 if(id===t.id){
-                    return response.data.resources
+                    return response.data.resource
                 }else{
                     return t
                 }
