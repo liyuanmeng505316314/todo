@@ -3,7 +3,7 @@ import {Checkbox,Icon} from 'antd'
 import './todoItem.scss'
 import classNames from 'classnames'
 
-
+// 接下来的是一个组件有的东西， description描述，completed是否完成，editing，是否编辑
 interface ITodoItemProps{
     id:number;
     description:string;
@@ -48,7 +48,7 @@ class Component extends React.Component<ITodoItemProps,ITOdoItemState>{
                  <div className="iconWrapper">
                      <Icon className="icon" type="enter"/>
                      <Icon className="icon" type="delete" theme="filled"
-                     onClick={e=>this.update({delete:true})}
+                     onClick={ e=>this.update({deleted:true})}
                      />
                  </div>
              </div>
@@ -61,7 +61,7 @@ class Component extends React.Component<ITodoItemProps,ITOdoItemState>{
           })
         return(
             <div className={todoItemClass} id="TodoItem">
-            {/* 勾选框，表示是否已完成 */}
+            {/*  勾选框，表示是否已完成 */}
             <Checkbox className="checkbox" checked={this.props.completed} 
                     onChange={e=>this.update({completed:e.target.checked})}
             />

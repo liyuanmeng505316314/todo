@@ -6,11 +6,11 @@
     flex-wrap:wrap;
     width: 94vw;
     height: 400px;
-    background-color: red;
+    background-color: #fdfdfd;
     .todo1{
     width:  47vw;
     height: 200px;
-    background-color: blue;
+    background-color: #ddd;
     }
     .todo2{
         width: 47vw;
@@ -24,14 +24,8 @@
             margin: auto;
         }
     }
-    .todo3{
-        width:  47vw;
-        height: 200px;
-        background-color: black;
-        }
-    .todo4{
-            width: 47vw;
-            height: 200px;
-            background-color: gray;
+    .todoList{
+        padding: 8px;
+        margin-top: 16px;
     }
 }

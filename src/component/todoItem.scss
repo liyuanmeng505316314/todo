@@ -5,15 +5,20 @@
     display: flex;
     width: 95vw;
     padding: 8px;
+    background-color: white;
     align-items: center;
     border-bottom: 1px solid #ddd;
     &:hover{
         background-color: #f9f9f9;
     }
+    &:first-child{
+        border-top: 1px solid #ddd;
+    }
     &.editing{
         background-color: #fff3d2;
     }
     &.completed{
+        background-color: #f9f9f9;
         >.text{
             text-decoration: line-through;
             color:gray;
@@ -40,6 +45,9 @@
         font-size: 16px;
           >.icon{
             float:right;
+            margin-left: 4px;
+            color:#a9a9a9;
+            cursor:pointer;
           }
        }
     }

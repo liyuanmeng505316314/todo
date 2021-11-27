@@ -15,7 +15,16 @@ class Component extends React.Component<any,ITodoState>{
             todos:[]
         }
     }
-        
+    get unDeletedTodos(){
+        return this.state.todos.filter(t=>!t.deleted)
+    }
+    get unCompletedTodos(){
+        return this.unDeletedTodos.filter(t=>!t.completed)
+    }
+    get CompletedTodos(){
+        return this.unDeletedTodos.filter(t=>t.completed)
+    }
+
     addTodo=async (params:any)=>{
         const {todos} =this.state
        try{
@@ -72,10 +81,18 @@ class Component extends React.Component<any,ITodoState>{
         return(
             <div id="Todos">
             <div className='todo1' id='todo1'>番茄时钟区</div>
-            <TodoInputPart addTodo={(params)=>this.addTodo(params)} />
-            <div className='todo3' id='todo3'>3</div>
-            <div className='todo4' id='todo4'>4</div>
-            <div>{ this.state.todos.map(t=>{  
+            {/* todoInput里面的div，类名是todo2 */}
+            <TodoInputPart addTodo={(params)=>this.addTodo(params)} /> 
+            {/* todoList里面的div，类名是todoList，同时有组件todoItem */}
+            <div className="todoList">
+                { this.unCompletedTodos.map(t=>{  
+                    return <TodoItem key={t.id} {...t} 
+                    update={this.updateTodo}
+                    toEditing={this.toEditing}
+                    />  
+                  }) 
+                }  
+               {  this.CompletedTodos.map(t=>{  
                     return <TodoItem key={t.id} {...t} 
                     update={this.updateTodo}
                     toEditing={this.toEditing}
