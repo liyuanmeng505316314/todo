@@ -1,5 +1,7 @@
 import * as React from 'react';
-import './todo.scss'
+import {connect} from 'react-redux';
+import { addTodo } from 'src/redux/actions';
+import './todo.scss';
 import TodoInputPart from './todoInputPart'
 import axios from '../config/axios'
 import TodoItem from './todoItem'
@@ -76,13 +78,15 @@ class Component extends React.Component<any,ITodoState>{
        })
     this.setState({todos:newTodos})
    }
+ 
+
 
     render(){
         return(
             <div id="Todos">
             <div className='todo1' id='todo1'>番茄时钟区</div>
             {/* todoInput里面的div，类名是todo2 */}
-            <TodoInputPart addTodo={(params)=>this.addTodo(params)} /> 
+            <TodoInputPart /> 
             {/* todoList里面的div，类名是todoList，同时有组件todoItem */}
             <div className="todoList">
                 { this.unCompletedTodos.map(t=>{  
@@ -103,8 +107,15 @@ class Component extends React.Component<any,ITodoState>{
             </div>
         )
     }
-
-
 }
 
-export default Component
+const mapStateToProps=(state:any,ownProps:any)=>({
+    todos: state.todos,
+    ...ownProps
+})
+
+const mapDispatchToProps={
+    addTodo
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Component)
