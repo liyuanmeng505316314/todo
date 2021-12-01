@@ -55,7 +55,7 @@ class Component extends React.Component<ITodoInputProps,ITodoInputState>{
                 onKeyUp={this.onKeyUp}
                 />
                 </div>
-                </div>
+          </div>
           
 
         )

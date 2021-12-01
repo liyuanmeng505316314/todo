@@ -41,24 +41,23 @@ class Component extends React.Component<any>{
  
     render(){
         return(
-            <div id="Todos">
-            <div className='todo1' id='todo1'>番茄时钟区</div>
+         <div id="Todos">
             {/* todoInput里面的div，类名是todo2 */}
-            <TodoInputPart /> 
-            {/* todoList里面的div，类名是todoList，同时有组件todoItem */}
-            <div className="todoList">
-                { this.unCompletedTodos.map(t=>{  
-                    return <TodoItem key={t.id} {...t} 
-                    />  
+            <div className="include">
+               <TodoInputPart /> 
+                {/* todoList里面的div，类名是todoList，同时有组件todoItem */}
+               <div className="todoList">
+                  { this.unCompletedTodos.map(t=>{  
+                    return <TodoItem key={t.id} {...t} />  
+                    }) 
+                  }  
+                {  this.CompletedTodos.map(t=>{  
+                    return <TodoItem key={t.id} {...t} />  
                   }) 
                 }  
-               {  this.CompletedTodos.map(t=>{  
-                    return <TodoItem key={t.id} {...t} 
-                    />  
-                  }) 
-                }  
+                 </div>
             </div>
-            </div>
+         </div>
         )
     }
 }

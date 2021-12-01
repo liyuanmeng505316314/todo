@@ -2,30 +2,27 @@
 
 
 #Todos{
-    display: flex;
-    flex-wrap:wrap;
-    width: 94vw;
+    width: 47vw;
     height: 400px;
     background-color: #fdfdfd;
-    .todo1{
-    width:  47vw;
-    height: 200px;
-    background-color: #ddd;
-    }
-    .todo2{
+    margin-left: 1vw;
+    display: flex;
+    flex-wrap:wrap;
+    >.include{
         width: 47vw;
-        height: 200px;
-        background-color: yellow;
-        >.input{
+        border-radius: 5px;
+        border: 1px solid #ddd;
+        .todoList{
             padding: 8px;
-            border-radius: 5px;
-            border: 1px solid #ddd;
+            margin-top: 16px;
+           }
+       .todo2{
+          >.input{
+            padding: 8px;
             width: 32vw;
             margin: auto;
+           }
         }
-    }
-    .todoList{
-        padding: 8px;
-        margin-top: 16px;
-    }
+      
+    } 
 }

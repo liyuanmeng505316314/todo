@@ -15,6 +15,9 @@ body{
     }
     >main{
       padding: 16px 0;
+      display: flex;
+      flex-wrap:wrap ;
+      align-items: flex-start;
     }
     
 }

@@ -25,3 +25,15 @@ store.subscribe(()=>{
 
 registerServiceWorker();
 
+// import * as React from 'react'
+// class Component extends React.Component{
+//    public render(){
+//        return(
+//            <div className="null"></div>
+//        )
+//    }
+
+// }
+
+// export default Component
+

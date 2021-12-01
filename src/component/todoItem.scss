@@ -3,7 +3,7 @@
 
 #TodoItem{
     display: flex;
-    width: 95vw;
+    width: calc(50%-8px);
     padding: 8px;
     background-color: white;
     align-items: center;
