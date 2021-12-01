@@ -1,4 +1,4 @@
-import {ADD_TOMATO} from '../name'
+import {ADD_TOMATO,INIT_TOMATO} from '../name'
 
 
 export default (state:any[]=[],action:any):any=>{
@@ -7,7 +7,7 @@ export default (state:any[]=[],action:any):any=>{
 
 
      case ADD_TOMATO    : return [ action.payload,...state];
-
+     case INIT_TOMATO    : return [ action.payload,...state];
      default    : return state;    
      
  }

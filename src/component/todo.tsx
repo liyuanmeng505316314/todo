@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {connect} from 'react-redux';
-import { initTodos,updateTodo } from 'src/redux/actions';
+import { initTodos,updateTodo } from 'src/redux/actions/todos';
 import './todo.scss';
 import TodoInputPart from './todoInputPart'
 import axios from '../config/axios'
