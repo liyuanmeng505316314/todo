@@ -1,4 +1,4 @@
-import {ADD_TOMATO,INIT_TOMATO} from '../name'
+import {ADD_TOMATO,INIT_TOMATO,UPDATE_TOMATO} from '../name'
 
 
 
@@ -15,3 +15,11 @@ export const initTomato=(payload:number)=>{
         payload
        }
 }
+
+export const updateTomato=(payload:number)=>{ 
+    return {
+        type:UPDATE_TOMATO,
+        payload
+       }
+}
+

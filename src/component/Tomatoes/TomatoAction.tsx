@@ -1,6 +1,6 @@
 import * as React from 'react'
 import axios  from 'src/config/axios'
-import CountDown from './countDown'
+import CountDown from './countHooks'
 import {Button,Input} from "antd"
 
 interface ITomatoActionState{
@@ -9,6 +9,7 @@ interface ITomatoActionState{
 
 interface ITomatoActionProps{
     startTomato:()=>void;
+    updateTomato:(payload:any)=>any;
     unfinishedTomato:any;
 }
 class Component extends React.Component<ITomatoActionProps, ITomatoActionState>{
@@ -16,21 +17,29 @@ class Component extends React.Component<ITomatoActionProps, ITomatoActionState>{
   constructor(props){
       super(props)
       this.state={
-          description:' '
+          description:''
       }
   }
 
    onKeyUp=(e)=>{
-    if(e.keyCode===13 && this.state.description!==''){
+      if(e.keyCode===13 && this.state.description!==''){
         this.addDescription()
-
-    }
+      }
    }
+
+   onFinish=()=>{
+       this.render()
+   }
+
    addDescription= async ()=>{
        try{
-     const response = await axios.put(`tomatoes/${this.props.unfinishedTomato.id}`,{description:this.state.description,ended_at:new Date()})
-     this.setState({description:''})
-     console.log(response)
+     const response = await axios.put(`tomatoes/${this.props.unfinishedTomato.id}`,{
+         description:this.state.description,
+         ended_at:new Date()
+           }
+        )
+     this.setState({description:'',})
+     this.props.updateTomato(response.data.resource)
       }catch(e){
           throw new Error(e)
       }
@@ -52,16 +61,18 @@ class Component extends React.Component<ITomatoActionProps, ITomatoActionState>{
                          onKeyUp={e=>this.onKeyUp(e)}
                  />
                  </div>
-          } else if(timeNow-startedAt<=duration){
-              html =<CountDown/>
+          } else if(timeNow-startedAt<duration){
+              const timer=startedAt+duration-timeNow
+              html =<CountDown 
+                        timer={timer}
+                        onFinish={this.onFinish}
+              />
           }
        }
        
        return(
            <div className="TomatoAction" id="TomatoAction">
              {html}
-        
-         
            </div>
        )
    }
