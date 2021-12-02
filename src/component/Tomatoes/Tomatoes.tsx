@@ -9,6 +9,7 @@ import './Tomatoes.scss'
 
 interface ITomatoesProps{
     addTomato:(payload:any)=>any;
+    initTomato:(payload:any[])=>any;
     tomatoes:any[];
 }
 
@@ -23,13 +24,14 @@ class Component extends React.Component<ITomatoesProps,any>{
     }
     
     get unfinishedTomato (){
-         return this.props.tomatoes.filter(t=>!t.description&&!t.ender_at)[0]
+         return this.props.tomatoes.filter(t=>!t.description && !t.ended_at)[0]
     }
 
     getTomatoes=async()=>{
         try{
             const response =await axios.get('tomatoes')
-            console.log(response.data)
+            this.props.initTomato(response.data.resources) 
+            console.log(this.unfinishedTomato)
         }catch(e){
            throw new Error(e)
         }
