@@ -34,6 +34,7 @@ class Component extends React.Component<IRouter, IIndexState>{
        }
    }
    async componentWillMount(){
+     document.title=`请开始您的番茄学习之旅`
       await this.getMe()
    }
 

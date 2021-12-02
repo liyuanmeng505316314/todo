@@ -1,0 +1,18 @@
+
+
+
+#TomatoAction{
+    flex: 1;
+    .countDownWrapper,.inputWrapper{
+        position: relative;
+        
+    }
+    .abort{
+        position: absolute;
+        margin-top: 8px;
+        left: 0;
+        top:0;
+        cursor:pointer;
+    }
+
+}

@@ -1,5 +1,7 @@
 import  React,{useEffect,useState,FunctionComponent} from 'react'
 
+// 为了防止重新渲染的问题，故还是使用了类组件
+
 interface ICountDownHookProps{
     timer:number;
     onFinish:()=>void;
@@ -13,6 +15,8 @@ const Component:FunctionComponent<ICountDownHookProps> =(props)=>{
    const minus= Math.floor(countDown/60000)
    const second=Math.floor(countDown/1000)%60
    const time =`  ${minus<10? `0${minus}` :minus}:  ${second<10? `0${second}` :second}  `
+ 
+   // 这个useEffect，不知道为什么，自己就会出现括号无效的现象
 
   useEffect(()=>{
         document.title=`${time}`

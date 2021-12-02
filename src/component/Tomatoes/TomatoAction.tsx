@@ -1,17 +1,20 @@
 import * as React from 'react'
 import axios  from 'src/config/axios'
-import CountDown from './countHooks'
-import {Button,Input} from "antd"
+import CountDown from './countDown'
+import {Button,Input,Icon,Modal} from "antd"
+import './TomatoAction.scss'
 
 interface ITomatoActionState{
     description:string;
 }
 
 interface ITomatoActionProps{
+  
     startTomato:()=>void;
     updateTomato:(payload:any)=>any;
     unfinishedTomato:any;
 }
+
 class Component extends React.Component<ITomatoActionProps, ITomatoActionState>{
 
   constructor(props){
@@ -23,27 +26,46 @@ class Component extends React.Component<ITomatoActionProps, ITomatoActionState>{
 
    onKeyUp=(e)=>{
       if(e.keyCode===13 && this.state.description!==''){
-        this.addDescription()
+        this.updateTomato({
+            description:this.state.description , ended_at:new Date()  
+        })
+        this.setState({description:''})
       }
    }
+
+   showConfirm=()=>{
+    Modal.confirm({
+      title: '骚年，您是否要放弃掉当前的番茄?',
+      onOk:()=>{
+       this.abortTomato()
+      },
+      onCancel() {
+        console.log('Cancel');
+      },
+      okText:'是' ,
+      cancelText:'否'
+    });
+  }
 
    onFinish=()=>{
-       this.render()
+       this.forceUpdate()
    }
 
-   addDescription= async ()=>{
+   abortTomato=async( )=>{
        try{
-     const response = await axios.put(`tomatoes/${this.props.unfinishedTomato.id}`,{
-         description:this.state.description,
-         ended_at:new Date()
-           }
-        )
-     this.setState({description:'',})
-     this.props.updateTomato(response.data.resource)
-      }catch(e){
+          this.updateTomato({aborted:true})
+          document.title=`您刚刚取消了一个番茄时钟`
+       }catch(e){
           throw new Error(e)
-      }
+       }
    }
+
+   updateTomato=async(params:any)=>{
+    const response = await axios.put(`tomatoes/${this.props.unfinishedTomato.id}`,params)
+    this.props.updateTomato(response.data.resource)
+    this.setState({description:'',})
+   }
+
 
    public render(){
        let html =<div>1</div>
@@ -54,19 +76,22 @@ class Component extends React.Component<ITomatoActionProps, ITomatoActionState>{
         const duration=this.props.unfinishedTomato.duration
         const timeNow=new Date().getTime()
           if(timeNow-startedAt>duration){
-              html=   <div>
+              html=   <div  className="inputWrapper" id="inputWrapper">
                   <Input value={this.state.description}
                          placeholder="请输入你刚刚完成的任务"
                          onChange={e=>this.setState({description:e.target.value})}
                          onKeyUp={e=>this.onKeyUp(e)}
                  />
+                 <Icon className="abort" type="close-circle" onClick={this.showConfirm}/>
                  </div>
           } else if(timeNow-startedAt<duration){
               const timer=startedAt+duration-timeNow
-              html =<CountDown 
-                        timer={timer}
-                        onFinish={this.onFinish}
-              />
+              html =(
+                  <div className="countDownWrapper" id="countDownWrapper">
+                      <CountDown timer={timer} duration={duration} onFinish={this.onFinish}/>
+                      <Icon className="abort" type="close-circle" onClick={this.showConfirm}/>
+                  </div>
+                )
           }
        }
        
