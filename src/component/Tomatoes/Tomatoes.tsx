@@ -3,6 +3,9 @@
 import * as React from 'react'
 import axios from 'src/config/axios'
 import TomatoAction from './TomatoAction'
+import TomatoList from './TomatoList'
+import _ from 'lodash'
+import {format} from 'date-fns'
 import { connect } from 'react-redux'
 import {addTomato,initTomato,updateTomato} from 'src/redux/actions/tomatoes'
 import './Tomatoes.scss'    
@@ -28,11 +31,18 @@ class Component extends React.Component<ITomatoesProps,any>{
          return this.props.tomatoes.filter(t=>!t.description && !t.ended_at &&!t.aborted)[0]
     }
 
+    get finishedTomatoes (){
+        const  finishedTomatoes = this.props.tomatoes.filter(t=>t.description && t.ended_at &&!t.aborted)
+        const  obj = _.groupBy(finishedTomatoes,(tomato)=>{
+           return format(tomato.started_at,'YYYY-MM-D')
+        })
+        return obj
+   }
+
     getTomatoes=async()=>{
         try{
             const response =await axios.get('tomatoes')
             this.props.initTomato(response.data.resources) 
-            console.log(this.unfinishedTomato)
         }catch(e){
            throw new Error(e)
         }
@@ -40,7 +50,7 @@ class Component extends React.Component<ITomatoesProps,any>{
 
     startTomato= async ()=>{
         try{
-       const response =await axios.post('tomatoes',{duration:1500000})
+       const response =await axios.post('tomatoes',{duration:1496000}) // 我设置为25分钟，但是会多出四秒钟来，这是什么原因？
        this.props.addTomato(response.data.resource)
         }catch(e){
            throw new Error(e)
@@ -55,6 +65,7 @@ class Component extends React.Component<ITomatoesProps,any>{
                   unfinishedTomato={this.unfinishedTomato}
                   updateTomato={this.props.updateTomato}
                   />
+                  <TomatoList finishedTomatoes={this.finishedTomatoes}/>
            </div>
        )
    }    

@@ -3,6 +3,9 @@
 
 #TomatoAction{
     flex: 1;
+    .startTomatoButton{
+        width: 100%;
+      }
     .countDownWrapper,.inputWrapper{
         position: relative;
         
