@@ -3,6 +3,7 @@ import {Dropdown,Icon,Menu} from 'antd';
 import axios from 'src/config/axios'
 import history from '../config/history'
 import Tomatoes from './Tomatoes/Tomatoes'
+import Statistics from './statistics/statistics'
 import './Index.scss'
 import Todo from './todo'
 interface IRouter{
@@ -58,6 +59,7 @@ class Component extends React.Component<IRouter, IIndexState>{
                   <Tomatoes/>
                   <Todo />
                 </main>
+                 <Statistics/>
                 </div>
               )
     }

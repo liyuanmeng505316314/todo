@@ -50,7 +50,7 @@ class Component extends React.Component<ITomatoesProps,any>{
 
     startTomato= async ()=>{
         try{
-       const response =await axios.post('tomatoes',{duration:1496000}) // 我设置为25分钟，但是会多出四秒钟来，这是什么原因？
+       const response =await axios.post('tomatoes',{duration:1500000}) // 我设置为25分钟，但是会多出四秒钟来，这是什么原因？
        this.props.addTomato(response.data.resource)
         }catch(e){
            throw new Error(e)

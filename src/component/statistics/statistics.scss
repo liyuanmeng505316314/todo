@@ -1,0 +1,18 @@
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+#statistics{
+    border: 1px solid red;
+    font-family:sans-serif;
+    >ul{
+        display: flex;
+        >li{
+            flex: 1;
+            list-style: none;
+            border: 1px solid green;
+        }
+    }
+}
